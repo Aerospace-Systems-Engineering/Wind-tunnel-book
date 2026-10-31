@@ -36,10 +36,15 @@ The 24 unknowns $(p_1, \ldots, p_{12},\, Q_1, \ldots, Q_{12})$ are governed by t
 Across each component the static pressure changes according to
 
 $$
-p_{i+1} - p_i = \alpha_i\, q_i, \qquad i = 1, \ldots, 12
+p_{i+1} - p_i =
+\begin{cases}
+  \Delta p_\text{fan}(Q_i) & i = 6 \\
+  \alpha_i\, q_i           & \text{otherwise}
+\end{cases}
+\qquad i = 1, \ldots, 12
 $$
 
-with $p_{13} \equiv p_1$. The **pressure coefficient** $\alpha_i$ captures both the viscous loss and the conversion between dynamic and static pressure due to any change in cross-sectional area:
+with $p_{13} \equiv p_1$. Component 6 is the centrifugal fan; its pressure rise $\Delta p_\text{fan}$ follows the manufacturer's characteristic curve as a function of the volume flow $Q_6$. For all other components the **pressure coefficient** $\alpha_i$ captures both the viscous loss and the conversion between dynamic and static pressure due to any change in cross-sectional area:
 
 $$
 \alpha_i = \underbrace{1 - \left(\frac{A_i}{A_{i+1}}\right)^{\!2}}_{\text{area change}} \;-\; \underbrace{K_i}_{\text{loss}}, \qquad i \neq 6
@@ -75,12 +80,6 @@ $$
 Comparing with the defining relation $p_{i+1} - p_i = \alpha_i\, q_i$ yields the result.
 
 </Derivation>
-
-Component 6 (fan) is the sole pressure source. Its pressure rise follows the manufacturer's characteristic curve and replaces the formula above:
-
-$$
-p_7 - p_6 = \Delta p_\text{fan}(Q_6)
-$$
 
 Summing all twelve pressure equations around the closed loop yields the **circuit balance**:
 
