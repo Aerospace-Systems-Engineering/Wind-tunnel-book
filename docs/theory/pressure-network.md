@@ -9,15 +9,15 @@ import Derivation from '@site/src/components/Derivation';
 
 # Pressure Network Model
 
-## Motivation
-
 Although PROTOFLOW is a nearly closed circuit, real-world imperfections introduce small leaks between the tunnel interior and the surrounding atmosphere. Even though the resulting mass flows are small compared to the main circulation, they have a disproportionate effect: in a perfectly sealed circuit the absolute pressure distribution would be entirely indeterminate, whereas even minor leakage anchors the absolute level. Predicting where in the circuit the pressure sits relative to atmosphere matters for instrument calibration, model loading corrections, and flow quality assessment.
 
 The pressure network model described here predicts the static pressure at each component interface and the volumetric flow rate through each component, for a given fan operating point and a set of component and leak parameters.
 
 ## Numbering convention
 
-Components and nodes are numbered following the schematic in [The Wind Tunnel](/windtunnel), starting from the settling chamber and increasing in the flow direction (counter-clockwise).
+Components and nodes are numbered as shown in the schematic below, starting from the settling chamber and increasing in the flow direction (counter-clockwise). Full component descriptions are given in [The Wind Tunnel](/windtunnel).
+
+![Schematic overview of the PROTOFLOW wind tunnel circuit, with numbered components.](/img/ProtoFlowSchematic.png)
 
 **Node $i$** is defined as the cross-section at the **inlet of component $i$**. The outlet of component $i$ coincides with node $i+1$. With twelve components the circuit closes: node 13 ≡ node 1.
 
@@ -44,6 +44,8 @@ with $p_{13} \equiv p_1$. The **pressure coefficient** $\alpha_i$ captures both 
 $$
 \alpha_i = \underbrace{1 - \left(\frac{A_i}{A_{i+1}}\right)^{\!2}}_{\text{area change}} \;-\; \underbrace{K_i}_{\text{loss}}, \qquad i \neq 6
 $$
+
+where $K_i \geq 0$ is the (local) loss coefficient and $A_{i+1}$ is the outlet area of component $i$. For constant-area sections $A_i = A_{i+1}$, so the area term vanishes and $\alpha_i = -K_i < 0$ (pure pressure loss). For diffusers $A_{i+1} > A_i$ and the area term is positive; for well-designed diffusers this exceeds the loss, giving $\alpha_i > 0$ (net static pressure rise). For the contraction $A_{i+1} \ll A_i$ and $\alpha_i \ll 0$ (large static pressure drop as the flow accelerates).
 
 <Derivation title="Derivation of the pressure coefficient α_i">
 
@@ -73,8 +75,6 @@ $$
 Comparing with the defining relation $p_{i+1} - p_i = \alpha_i\, q_i$ yields the result.
 
 </Derivation>
-
-where $K_i \geq 0$ is the (local) loss coefficient and $A_{i+1}$ is the outlet area of component $i$. For constant-area sections $A_i = A_{i+1}$, so the area term vanishes and $\alpha_i = -K_i < 0$ (pure pressure loss). For diffusers $A_{i+1} > A_i$ and the area term is positive; for well-designed diffusers this exceeds the loss, giving $\alpha_i > 0$ (net static pressure rise). For the contraction $A_{i+1} \ll A_i$ and $\alpha_i \ll 0$ (large static pressure drop as the flow accelerates).
 
 Component 6 (fan) is the sole pressure source. Its pressure rise follows the manufacturer's characteristic curve and replaces the formula above:
 
