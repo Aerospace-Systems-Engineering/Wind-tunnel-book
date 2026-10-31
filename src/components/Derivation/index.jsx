@@ -5,7 +5,7 @@ export default function Derivation({ title = 'Derivation', children }) {
   return (
     <details className={styles.derivation}>
       <summary className={styles.summary}>
-        <span className={styles.icon}>∂</span>
+        <span className={styles.icon}>≡</span>
         <span className={styles.label}>{title}</span>
         <span className={styles.chevron}>&#9654;</span>
       </summary>
