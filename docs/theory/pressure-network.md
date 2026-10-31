@@ -5,6 +5,8 @@ sidebar_label: Pressure Network Model
 slug: /theory/pressure-network
 ---
 
+import Derivation from '@site/src/components/Derivation';
+
 # Pressure Network Model
 
 ## Motivation
@@ -40,8 +42,37 @@ $$
 with $p_{13} \equiv p_1$. The **pressure coefficient** $\alpha_i$ captures both the viscous loss and the conversion between dynamic and static pressure due to any change in cross-sectional area:
 
 $$
-\alpha_i = \underbrace{\left(\frac{A_i}{A_{i+1}}\right)^{\!2} - 1}_{\text{area change}} \;-\; \underbrace{K_i}_{\text{loss}}, \qquad i \neq 6
+\alpha_i = \underbrace{1 - \left(\frac{A_i}{A_{i+1}}\right)^{\!2}}_{\text{area change}} \;-\; \underbrace{K_i}_{\text{loss}}, \qquad i \neq 6
 $$
+
+<Derivation title="Derivation of the pressure coefficient α_i">
+
+Apply the energy equation between node $i$ (inlet) and node $i+1$ (outlet) of component $i$.
+Mechanical energy dissipated by viscous effects is quantified by the loss coefficient $K_i \geq 0$,
+referenced to the inlet dynamic pressure $q_i$:
+
+$$
+p_{t,i+1} = p_{t,i} - K_i\, q_i
+$$
+
+where $p_{t,j} = p_j + \tfrac{1}{2}\rho(Q_i/A_j)^2$ is the total pressure at node $j$.
+No mass escapes within a component, so the same volume flow $Q_i$ applies at inlet and outlet.
+Expanding both total pressures:
+
+$$
+p_{i+1} + \tfrac{1}{2}\rho\frac{Q_i^2}{A_{i+1}^2}
+= p_i + \tfrac{1}{2}\rho\frac{Q_i^2}{A_i^2} - K_i\, q_i
+$$
+
+Recognising $\tfrac{1}{2}\rho Q_i^2/A_j^2 = q_i(A_i/A_j)^2$ and rearranging:
+
+$$
+p_{i+1} - p_i = q_i\!\left[1 - \left(\frac{A_i}{A_{i+1}}\right)^{\!2} - K_i\right]
+$$
+
+Comparing with the defining relation $p_{i+1} - p_i = \alpha_i\, q_i$ yields the result.
+
+</Derivation>
 
 where $K_i \geq 0$ is the (local) loss coefficient and $A_{i+1}$ is the outlet area of component $i$. For constant-area sections $A_i = A_{i+1}$, so the area term vanishes and $\alpha_i = -K_i < 0$ (pure pressure loss). For diffusers $A_{i+1} > A_i$ and the area term is positive; for well-designed diffusers this exceeds the loss, giving $\alpha_i > 0$ (net static pressure rise). For the contraction $A_{i+1} \ll A_i$ and $\alpha_i \ll 0$ (large static pressure drop as the flow accelerates).
 

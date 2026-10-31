@@ -1,0 +1,63 @@
+.derivation {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-left: 4px solid #8250df;
+  border-radius: 4px;
+  margin: 1.25rem 0;
+  background-color: var(--ifm-card-background-color);
+  overflow: hidden;
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.65rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  list-style: none;
+  color: var(--ifm-color-emphasis-800);
+  user-select: none;
+}
+
+/* Remove default disclosure triangle */
+.summary::-webkit-details-marker {
+  display: none;
+}
+.summary::marker {
+  content: '';
+}
+
+.icon {
+  color: #8250df;
+  font-weight: 700;
+  font-family: serif;
+  font-size: 1.1em;
+  flex-shrink: 0;
+}
+
+.label {
+  flex: 1;
+}
+
+.chevron {
+  margin-left: auto;
+  font-size: 0.7em;
+  color: var(--ifm-color-emphasis-500);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.derivation[open] .chevron {
+  transform: rotate(90deg);
+}
+
+.content {
+  padding: 0.25rem 1.25rem 1rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+/* Dark mode: slightly lighter background */
+[data-theme='dark'] .derivation {
+  background-color: rgba(130, 80, 223, 0.06);
+}
