@@ -122,8 +122,64 @@ The absolute static pressure at every node is then $p_i = p_0 + \delta p_i$. Wit
 
 ## Component details
 
-The pressure coefficient $\alpha_i$ for each component is given by the area-change term and the
-component loss coefficient $K_i$.  The sections below derive $K_i$ from the physical properties of
-each component:
+The pressure coefficient $\alpha_i$ for each component is determined by its geometry and the
+loss coefficient $K_i$.  The subsections below present $K_i$ for each component, parameterised in
+terms of measurable physical properties.
 
-- [Settling chamber (component 1)](./settling-chamber)
+### Settling chamber (component 1)
+
+The settling chamber is the largest, lowest-velocity section of the circuit (1000×1000 mm cross-section, $V_1 = V_\text{ts}/4$).  It contains a **honeycomb**—a bundle of long, thin cells that align the flow with the tunnel axis—followed by one or more **screens** that break up large-scale turbulence into small eddies which decay rapidly downstream.  Because $A_1 = A_2$, the pressure coefficient reduces to $\alpha_1 = -K_1$.
+
+The honeycomb and screen losses are additive:
+
+$$
+K_1 = K_\text{hc} + \sum_{j=1}^{n_\text{sc}} K_{\text{sc},j}.
+$$
+
+**Honeycomb.** Flow inside the narrow cells is laminar (Hagen–Poiseuille):
+
+$$
+K_\text{hc} = \frac{C_\text{hc}\,\nu\,L_\text{hc}}{V_1\,d_\text{hc}^2}.
+$$
+
+Note that $K_\text{hc} \propto 1/V_1$, so the honeycomb resistance is velocity-dependent.
+
+**Screens.** Each screen has porosity $\beta_j = (1 - d_{\text{sc},j}/M_{\text{sc},j})^2$ and a Borda–Carnot mixing loss:
+
+$$
+K_{\text{sc},j} = \left(\frac{1 - \beta_j}{\beta_j}\right)^{\!2}.
+$$
+
+At settling-chamber velocities ($Re_{d_\text{sc}} \approx 60$–$150$) viscous effects reduce this value and a Reynolds-number correction should be applied.
+
+| Parameter | Symbol | Value | Unit |
+|-----------|--------|-------|------|
+| Cell hydraulic diameter | $d_\text{hc}$ | t.b.d. | mm |
+| Cell length | $L_\text{hc}$ | t.b.d. | mm |
+| Shape factor | $C_\text{hc}$ | 57 (hexagonal) | — |
+| Number of screens | $n_\text{sc}$ | t.b.d. | — |
+| Wire diameter | $d_{\text{sc},j}$ | t.b.d. | mm |
+| Mesh spacing | $M_{\text{sc},j}$ | t.b.d. | mm |
+
+<Derivation title="Derivation — settling chamber loss coefficients">
+
+**Honeycomb.** Laminar Darcy–Weisbach with $f = C_\text{hc}/Re_{d_\text{hc}}$:
+
+$$
+\Delta p_\text{hc}
+  = f\frac{L_\text{hc}}{d_\text{hc}}\,q_1
+  = \frac{C_\text{hc}}{Re_{d_\text{hc}}}\cdot\frac{L_\text{hc}}{d_\text{hc}}\,q_1
+  = \underbrace{\frac{C_\text{hc}\,\nu\,L_\text{hc}}{V_1\,d_\text{hc}^2}}_{K_\text{hc}}\!q_1.
+$$
+
+**Screens.** The open-area fraction $\beta_j$ accelerates the flow to $V_1/\beta_j$ at the screen plane.  Downstream the jets mix irreversibly back to $V_1$; the Borda–Carnot pressure loss is:
+
+$$
+\Delta p_{\text{sc},j}
+  = \tfrac{1}{2}\rho\!\left(\frac{V_1}{\beta_j} - V_1\right)^{\!2}
+  = q_1\!\left(\frac{1-\beta_j}{\beta_j}\right)^{\!2}.
+$$
+
+This derivation assumes that all kinetic energy in the accelerated jets is dissipated irreversibly, which is the high-$Re_{d_\text{sc}}$ limit.
+
+</Derivation>
