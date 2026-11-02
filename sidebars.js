@@ -34,6 +34,15 @@ const sidebars = {
       collapsible: false,
       items: [
         'theory/pressure-network',
+        {
+          type: 'category',
+          label: 'Component Details',
+          collapsible: true,
+          collapsed: false,
+          items: [
+            'theory/settling-chamber',
+          ],
+        },
       ],
     },
   ],

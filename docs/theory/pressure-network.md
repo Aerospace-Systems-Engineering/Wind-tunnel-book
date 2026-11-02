@@ -26,7 +26,9 @@ Components and nodes are numbered as shown in the schematic below, starting from
 | $p_i$ | Static pressure at node $i$ (Pa) |
 | $Q_i$ | Volumetric flow rate through component $i$ (m³ s⁻¹) |
 | $A_i$ | Cross-sectional area at node $i$ (m²) |
-| $q_i = \tfrac{1}{2}\rho(Q_i/A_i)^2$ | Dynamic pressure at node $i$ (Pa) |
+| $V_i = Q_i/A_i$ | Mean flow velocity at node $i$ (m s⁻¹) |
+| $q_i = \tfrac{1}{2}\rho V_i^2$ | Dynamic pressure at node $i$ (Pa) |
+| $K_i$ | Pressure-loss coefficient of component $i$ (–) |
 | $k_i$ | Leak conductance at node $i$ (m³ s⁻¹ Pa⁻¹) |
 
 The 24 unknowns $(p_1, \ldots, p_{12},\, Q_1, \ldots, Q_{12})$ are governed by two sets of 12 equations each.
@@ -41,10 +43,9 @@ p_{i+1} - p_i =
   \Delta p_\text{fan}(Q_i) & i = 6 \\
   \alpha_i\, q_i           & \text{otherwise}
 \end{cases}
-\qquad i = 1, \ldots, 12
 $$
 
-with $p_{13} \equiv p_1$. Component 6 is the centrifugal fan; its pressure rise $\Delta p_\text{fan}$ follows the manufacturer's characteristic curve as a function of the volume flow $Q_6$. For all other components the **pressure coefficient** $\alpha_i$ captures both the viscous loss and the conversion between dynamic and static pressure due to any change in cross-sectional area:
+with $i = 1, \ldots, 12$ and $p_{13} \equiv p_1$. Component 6 is the centrifugal fan; its pressure rise $\Delta p_\text{fan}$ follows the manufacturer's characteristic curve as a function of the volume flow $Q_6$. For all other components the **pressure coefficient** $\alpha_i$ captures both the viscous loss and the conversion between dynamic and static pressure due to any change in cross-sectional area:
 
 $$
 \alpha_i = \underbrace{1 - \left(\frac{A_i}{A_{i+1}}\right)^{\!2}}_{\text{area change}} \;-\; \underbrace{K_i}_{\text{loss}}, \qquad i \neq 6
@@ -121,4 +122,8 @@ The absolute static pressure at every node is then $p_i = p_0 + \delta p_i$. Wit
 
 ## Component details
 
-The pressure coefficients $\alpha_i$ for each of the twelve components are derived in the following sections.
+The pressure coefficient $\alpha_i$ for each component is given by the area-change term and the
+component loss coefficient $K_i$.  The sections below derive $K_i$ from the physical properties of
+each component:
+
+- [Settling chamber (component 1)](./settling-chamber)
