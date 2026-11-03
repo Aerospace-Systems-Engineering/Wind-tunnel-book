@@ -15,9 +15,9 @@ The pressure network model described here predicts the static pressure at each c
 
 ## Numbering convention
 
-Components and nodes are numbered as shown in the schematic below, starting from the settling chamber and increasing in the flow direction (counter-clockwise). Full component descriptions are given in [The Wind Tunnel](/windtunnel).
+Components and nodes are numbered as shown in the schematic below, starting from the settling chamber and increasing in the flow direction (clockwise). Full component descriptions are given in [The Wind Tunnel](/windtunnel).
 
-![Schematic overview of the PROTOFLOW wind tunnel circuit, with numbered components.](/img/ProtoFlowSchematic.svg)
+![Schematic overview of the PROTOFLOW wind tunnel circuit. Component numbers are shown in the sections; pressure node numbers (1–12) are indicated by the red markers at the component interfaces.](/img/ProtoFlowSchematic.svg)
 
 **Node $i$** is defined as the cross-section at the **inlet of component $i$**. The outlet of component $i$ coincides with node $i+1$. With twelve components the circuit closes: node 13 ≡ node 1.
 
