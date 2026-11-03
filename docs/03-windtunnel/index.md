@@ -15,7 +15,7 @@ This chapter describes the PROTOFLOW facility: its layout, its components, and t
 
 PROTOFLOW is a **closed-circuit** wind tunnel. Air circulates continuously around a loop rather than being drawn from the room. The circuit lies in a single vertical plane, with the return leg stacked above the test section to minimise floor area.
 
-![Schematic overview of the PROTOFLOW wind tunnel circuit, with numbered components.](/img/ProtoFlowSchematic.png)
+![Schematic overview of the PROTOFLOW wind tunnel circuit, with numbered components.](/img/ProtoFlowSchematic.svg)
 
 The flow path, starting from the settling chamber:
 
