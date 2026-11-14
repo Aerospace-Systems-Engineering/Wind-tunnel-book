@@ -1,7 +1,7 @@
 ---
 id: index
-title: The Wind Tunnel
-sidebar_label: 3. The Wind Tunnel
+title: The ProtoFlow Tunnel
+sidebar_label: The ProtoFlow Tunnel
 slug: /windtunnel
 ---
 
@@ -9,13 +9,13 @@ import Quiz from '@site/src/components/Quiz';
 
 # The Wind Tunnel
 
-This chapter describes the PROTOFLOW facility: its layout, its components, and the design choices behind them.
+This chapter describes the ProtoFlow wind tunnel: its layout, its components, and the design choices behind them.
 
 ## Overall layout
 
 PROTOFLOW is a **closed-circuit** wind tunnel. Air circulates continuously around a loop rather than being drawn from the room. The circuit lies in a single vertical plane, with the return leg stacked above the test section to minimise floor area.
 
-![Schematic overview of the PROTOFLOW wind tunnel circuit, with numbered components.](/img/ProtoFlowSchematic.svg)
+![Schematic overview of the PROTOFLOW wind tunnel circuit, with numbered components.](/img/ProtoFlowSchematic.png)
 
 The flow path, starting from the settling chamber:
 
@@ -84,42 +84,4 @@ These devices work most effectively at low velocity, which is why the settling c
 
 The **contraction** (area ratio 4:1) then accelerates the conditioned flow from the 1000 × 1000 mm settling chamber to the 500 × 500 mm test section. Acceleration through the contraction suppresses velocity non-uniformities: a 1% variation entering the contraction becomes a 0.25% variation at the exit.
 
----
 
-## Self-check
-
-<Quiz
-  question="Why is the settling chamber placed at the widest cross-section of the circuit?"
-  options={[
-    "To maximise the volume available for the honeycomb and screens.",
-    "Because honeycomb and screens work best at low velocity, and the widest section has the lowest speed.",
-    "To reduce the structural loads on the screens at high dynamic pressure.",
-    "Because the fan needs a large inlet to avoid cavitation."
-  ]}
-  correct={1}
-  feedback="Both the honeycomb and the mesh screens are most effective at breaking down turbulence when the flow speed is low. The settling chamber at the widest section of the circuit has the lowest velocity (about 25% of test-section velocity), which is exactly where these conditioning devices work best."
-/>
-
-<Quiz
-  question="What is the area ratio of PROTOFLOW's contraction?"
-  options={[
-    "2:1",
-    "4:1",
-    "8:1",
-    "16:1"
-  ]}
-  correct={1}
-  feedback="The contraction takes the flow from the 1000 × 1000 mm settling chamber (area 1 000 000 mm²) to the 500 × 500 mm test section (area 250 000 mm²), an area ratio of 4:1. By continuity, the velocity increases by a factor of 4."
-/>
-
-<Quiz
-  question="What would happen if the corner vanes were removed?"
-  options={[
-    "The flow would accelerate around the bend, improving test-section uniformity.",
-    "The flow would separate on the inner wall of the corner, causing large pressure losses and non-uniform flow downstream.",
-    "The fan would run more efficiently without the additional resistance of the vanes.",
-    "Nothing significant — the corners are far from the test section."
-  ]}
-  correct={1}
-  feedback="Without vanes, the flow cannot follow the sharp 90° turn and separates on the inner wall. This causes large, unsteady separated regions, high pressure losses (reducing fan efficiency), and poor flow quality far downstream — including in the test section."
-/>

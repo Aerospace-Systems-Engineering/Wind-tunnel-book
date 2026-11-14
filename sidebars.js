@@ -26,15 +26,27 @@ const sidebars = {
       id: 'operating/index',
       label: '5. Operating PROTOFLOW',
     },
+    {
+      type: 'doc',
+      id: 'references/index',
+      label: 'References',
+    },
   ],
   refSidebar: [
     {
-      type: 'category',
-      label: 'Pressure Model',
-      collapsible: false,
-      items: [
-        'theory/pressure-network',
-      ],
+      type: 'doc',
+      id: 'theory/aerodynamics',
+      label: 'Aerodynamics',
+    },
+    {
+      type: 'doc',
+      id: 'theory/pressure-network',
+      label: 'Wind tunnel model',
+    },
+    {
+      type: 'doc',
+      id: 'theory/references',
+      label: 'References',
     },
   ],
 };

@@ -7,19 +7,20 @@ async function createConfig() {
   const rehypeKatex = (await import('rehype-katex')).default;
 
   return {
-    title: 'PROTOFLOW',
-    tagline: 'Rapid Prototyping Wind Tunnel — Onboarding Course',
+    title: 'ProtoFlow',
+    tagline: 'Rapid Prototyping Wind Tunnel — Documentation',
     favicon: 'img/protoflow-logo.svg',
 
     // Update this to your GitHub Pages URL once deployed
     url: 'https://aerospace-systems-engineering.github.io',
-    baseUrl: '/ProtoFlow/',
+    baseUrl: '/Wind-tunnel-book/',
 
     organizationName: 'Aerospace-Systems-Engineering',
-    projectName: 'ProtoFlow',
+    projectName: 'Wind-tunnel-book',
 
     onBrokenLinks: 'throw',
-    onBrokenMarkdownLinks: 'warn',
+    markdown: { hooks: { onBrokenMarkdownLinks: 'warn' } },
+
 
     i18n: {
       defaultLocale: 'en',
@@ -50,9 +51,9 @@ async function createConfig() {
       ({
         image: 'img/protoflow-logo.svg',
         navbar: {
-          title: 'PROTOFLOW',
+          title: 'ProtoFlow',
           logo: {
-            alt: 'PROTOFLOW Logo',
+            alt: 'ProtoFlow Logo',
             src: 'img/protoflow-logo.svg',
           },
           items: [
@@ -60,7 +61,7 @@ async function createConfig() {
               type: 'docSidebar',
               sidebarId: 'courseSidebar',
               position: 'left',
-              label: 'Course',
+              label: 'User Guide',
             },
             {
               type: 'docSidebar',
@@ -69,7 +70,7 @@ async function createConfig() {
               label: 'Technical Reference',
             },
             {
-              href: 'https://github.com/Aerospace-Systems-Engineering/ProtoFlow',
+              href: 'https://github.com/Aerospace-Systems-Engineering/Wind-tunnel-book',
               label: 'GitHub',
               position: 'right',
             },
@@ -85,20 +86,20 @@ async function createConfig() {
                 { label: 'Wind Tunnel Fundamentals', to: '/fundamentals' },
                 { label: 'The Wind Tunnel', to: '/windtunnel' },
                 { label: 'Instrumentation', to: '/instrumentation' },
-                { label: 'Operating PROTOFLOW', to: '/operating' },
+                { label: 'Operating ProtoFlow', to: '/operating' },
               ],
             },
             {
               title: 'TU/e',
               items: [
                 {
-                  label: 'Energy Technology & Fluid Dynamics',
-                  href: 'https://www.tue.nl/en/research/research-groups/energy-technology',
+                  label: 'Eindhoven University of Technology',
+                  href: 'https://www.tue.nl/',
                 },
               ],
             },
           ],
-          copyright: `Copyright © ${new Date().getFullYear()} TU/e Energy Technology &amp; Fluid Dynamics. Built with Docusaurus.`,
+          copyright: `Built with Docusaurus.`,
         },
         prism: {
           theme: prismThemes.github,

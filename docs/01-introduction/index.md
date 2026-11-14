@@ -1,60 +1,16 @@
 ---
 id: index
 title: Introduction
-sidebar_label: 1. Introduction
+sidebar_label: Introduction
 slug: /
 ---
 
-import Quiz from '@site/src/components/Quiz';
-
 # Introduction
 
-Welcome to the onboarding course for **PROTOFLOW** — the Rapid Prototyping Wind Tunnel at Eindhoven University of Technology.
+Flows shape the performance of many engineered systems. They determine how much lift an aircraft produces and how efficiently a car moves through the air, but they are equally important in a wide range of mechanical engineering applications, including heat exchangers, ventilation systems, turbomachinery, energy systems, and electronic cooling. In many cases, the behavior of a fluid directly determines a system's efficiency, reliability, and operating limits.
 
-## What is PROTOFLOW?
+[Wind tunnels](https://en.wikipedia.org/wiki/Wind_tunnel) have helped engineers study airflow for more than a century. The first enclosed wind tunnel, built by Francis Herbert Wenham in 1871, offered a more controlled way to study aerodynamic forces than experiments with moving objects in open air. Since then, wind tunnels have evolved from relatively simple experimental facilities into highly sophisticated research and industrial tools capable of reproducing a wide range of flow conditions, measuring forces with great precision, and visualizing complex flow phenomena. Despite enormous advances in computational modeling, wind tunnels remain essential today both for investigating flow behavior and for validating the models used to predict it [[Barlow et al., 1999](/references#barlow1999)].
 
-PROTOFLOW is a purpose-built, closed-circuit low-speed wind tunnel designed for rapid aerodynamic prototyping using 3D-printed test objects. The facility is part of the **Energy Technology & Fluid Dynamics** group at TU/e.
+Engineering design involving fluid flows relies on a combination of modeling, experimentation, and real-world testing. Mathematical and computational models provide rapid insight into design trends and underlying physics, but inevitably rely on simplifying assumptions. Wind-tunnel experiments offer controlled measurements and flow visualization, yet are often performed on scaled models under idealized conditions. Real-world testing captures the true operating environment, but is typically more expensive, less controlled, and more difficult to interpret. Aerodynamic design therefore hinges on the integrated consideration of all three approaches. The learning process driven by the continuous increase of understanding of the discrepancies and similarities between approaches is not only essential to achieve successful aerodynamic designs, but also to train aerodynamic intuition.
 
-The key idea is speed: a researcher or student can design a geometry in CAD, print it, and have aerodynamic force and flow measurements within a single working day. Alongside the physical facility, PROTOFLOW has a **CFD digital twin** — a computational model of the tunnel that is systematically validated against measurements and can be used to predict and interpret experimental results before or after a test.
-
-## Learning objectives
-
-After completing this course you will be able to:
-
-1. Explain the working principle of a closed-circuit wind tunnel and identify its key components.
-2. Describe the aerodynamic quantities that PROTOFLOW is designed to measure.
-3. Understand the role and limitations of the CFD digital twin.
-4. Operate the tunnel safely and mount a test prototype correctly.
-5. Set up, execute, and process a basic force and flow-velocity measurement.
-
-## How to use this course
-
-Work through the five chapters in order. Each chapter ends with a short self-check — use it to confirm your understanding before moving on. You are expected to have a working knowledge of undergraduate fluid mechanics; key aerodynamic concepts are introduced where needed.
-
----
-
-## Self-check
-
-<Quiz
-  question="PROTOFLOW is described as a 'rapid prototyping' wind tunnel. What does this primarily mean?"
-  options={[
-    "The tunnel runs at very high speeds to shorten test times.",
-    "Test objects are 3D-printed, so new geometries can be tested within a single day.",
-    "The data acquisition system records results automatically with no manual steps.",
-    "The tunnel can be assembled and disassembled quickly for transport."
-  ]}
-  correct={1}
-  feedback="The key enabler is 3D printing: it removes the traditional manufacturing bottleneck so that a new prototype can go from a CAD model to a wind tunnel test within one working day."
-/>
-
-<Quiz
-  question="What is the CFD digital twin?"
-  options={[
-    "A physical scale model of PROTOFLOW used for calibration.",
-    "A computational model of the tunnel validated against physical measurements.",
-    "A second, identical wind tunnel used to cross-check results.",
-    "Software that controls the fan speed automatically."
-  ]}
-  correct={1}
-  feedback="The digital twin is a CFD simulation of the tunnel that is validated against experimental data. Once trusted, it can be used to predict aerodynamic behaviour and to interpret measurements."
-/>
+The ProtoFlow educational wind tunnel is designed to accelerate this learning process by making experimentation fast, iterative, and accessible. Students can design a geometry, 3D-print a test object, and measure its aerodynamic forces and the surrounding flow within a short period of time. Rather than treating a wind-tunnel experiment as a weeks-long project, ProtoFlow encourages rapid cycles of prediction, testing, observation, and redesign. By repeatedly comparing expectations with measurements and immediately testing new ideas, students gradually develop intuition for the relationships between theoretical models, experiments, and real flows.
