@@ -76,12 +76,12 @@ The pressure-network model is characterized by a set of dimensionless loss and l
 
 | # | Component | Inlet area $A_i$ [$\text{mm}^2$] | Loss coefficient $K_i$ | Leakage coefficient $\Lambda_i$ [-] |
 |:---:|:---|:---|:---|:---|
-| 1 | Settling chamber | 1,000,000 | $0.120 + 1.793/Q_1$ |   |
+| 1 | Settling chamber | 1,000,000 | $1.50 + 0.85/Q_1 + 2.35\,Q_1^{-1/2}$ |   |
 | 2 | Contraction | 1,000,000 | $0.80$ |   |
 | 3 | Test section | 250,000 | $0.0336\,Q_3^{-0.214}$ | $6.1\times10^{-3}$ |
 | 4 | Diffuser 1 | 250,000 | $0.02445\,Q_4^{-0.214} + 0.0307$ |   |
 | 5 | Flexible sleeve | 395,900 | $0.44$ |   |
-| 6 | Fan | 395,900 |  -  | 0  |
+| 6 | Fan | 395,900 | $0.50 + 0.11/Q_6 + K_\text{se}$ (internal, see below) | 0  |
 | 7 | Diffuser 2 | 393,300 | $0.01846\,Q_7^{-0.214} + 0.00683$ | $1.22\times10^{-3}$ |
 | 8 | Corner 1 | 491,401 | $0.042$ | $6.1\times10^{-4}$ |
 | 9 | Diffuser 3 | 491,401 | $0.05032\,Q_9^{-0.214} + 0.0342$ |   |
@@ -93,6 +93,7 @@ The pressure-network model is characterized by a set of dimensionless loss and l
 
 - In the table above all flow rates $Q_i$ are in $\text{m}^3/\text{s}$.
 - The test-section coefficient $K_3$ corresponds to an empty test section ($K_\text{model} = 0$).
+- The fan coefficient $K_6$ is an internal loss of the installed fan: it is subtracted from the catalogue pressure rise (see [Installed fan pressure rise](#installed-fan-pressure-rise)). The system-effect coefficient $K_\text{se} \approx 4.12$ is calibrated on measurements.
 
 :::
 
@@ -102,12 +103,12 @@ The centrifugal fan (Ventomatic AEC 710/4D) is the energy source of the circuit.
 
 The rated speed of the fan is $n_0=1400$ [rpm] and the performance diagram, evaluated at $\rho = 1.2\,\text{kg/m}^3$, is shown below. 
 
-![Fitted fan characteristic of the Ventomatic AEC 710/4D at the speeds of the manufacturer's diagram](/img/fan_curve_modeled.png)
+![Fitted fan characteristic of the Ventomatic AEC 710/4D on the manufacturer's diagram, with the operating points of the calibrated model](/img/fan_fit_on_chart.png)
 
-To evaluate the model, the fan pressure difference, $\Delta p_{\text{fan}}$, needs to be expressed as a function of the flow rate, $Q_{\text{fan}}$, and the the fan speed, $n$. Following [(Dixon and Hall, 2014)](/theory/references#dixon2014) this function can be expressed as
+To evaluate the model, the catalogue fan pressure rise, $\Delta p_{\text{cat}}$, needs to be expressed as a function of the flow rate, $Q_{\text{fan}}$, and the the fan speed, $n$. Following [(Dixon and Hall, 2014)](/theory/references#dixon2014) this function can be expressed as
 
 $$
-\Delta p_\text{fan}(Q_\text{fan},n) = \rho\, n_\text{eff}^2 D_2^2\;
+\Delta p_\text{cat}(Q_\text{fan},n) = \rho\, n_\text{eff}^2 D_2^2\;
 \psi\!\left(\frac{Q_\text{fan}}{n_\text{eff}\,D_2^3}\right),
 $$
 
@@ -117,18 +118,18 @@ $$
 n_\text{eff} = n\,\exp\!\left(a_1 L + a_2 L^2\right), \qquad L = \ln\frac{n}{n_0}
 $$
 
-is the effective fan speed [(ISO 5801:2017)](/theory/references#iso5801), which compensates for low speed viscous effects [(Casey, 1985)](/theory/references#casey1985) [(Strub et al., 1987)](/theory/references#strub1987). The parameters $a_1=-0.0158$ and $a_2=-0.0408$ have been fitted on the performance diagram.
+is the effective fan speed [(ISO 5801:2017)](/theory/references#iso5801), which compensates for low speed viscous effects [(Casey, 1985)](/theory/references#casey1985) [(Strub et al., 1987)](/theory/references#strub1987). The parameters $a_1=-0.0261$ and $a_2=-0.0488$ have been fitted on the performance diagram.
 
 
 The dimensionless pressure difference and flow rate
 $$
-\psi = \frac{\Delta p_\text{fan}}{\rho\, n^2 D_2^2}, \qquad \phi = \frac{Q_\text{fan}}{n\,D_2^3},
+\psi = \frac{\Delta p_\text{cat}}{\rho\, n^2 D_2^2}, \qquad \phi = \frac{Q_\text{fan}}{n\,D_2^3},
 $$
 are fitted to the manufacturer data at the physical speed $n$ using a quadratic polynomial
 $$
 \psi(\phi) = c_0 + c_1\phi + c_2\phi^2,
 $$
-with $c_0 = 4.897$, $c_1 =5.448$ and $c_2=-16.588$. The fitted model, drawn over the manufacturer's diagram, is shown in the fan performance diagram.
+with $c_0 = 5.682$, $c_1 = 1.022$ and $c_2 = -11.069$. The fitted model, drawn over the manufacturer's diagram, is shown in the fan performance diagram.
 
 | Parameter | Symbol | Value |
 |-----------|--------|-------|
@@ -136,7 +137,79 @@ with $c_0 = 4.897$, $c_1 =5.448$ and $c_2=-16.588$. The fitted model, drawn over
 | Rated speed | $n_0$ | $1400\,\text{rpm}$ |
 
 :::caution Range of validity
-The model curves in the performance diagram are extrapolated beyond the manufacturer data ($0.217 \le \phi \le 0.611$) to $\phi \approx 0.68$, where the total efficiency has dropped to about $40\,\%$. 
+The model curves in the performance diagram are extrapolated beyond the manufacturer data ($0.208 \le \phi \le 0.637$) to $\phi \approx 0.70$, where the total efficiency has dropped to about $40\,\%$. 
+:::
+
+#### Installed fan pressure rise
+
+The catalogue characteristic $\Delta p_\text{cat}$ is measured by the manufacturer on a standardized test rig, with uniform, swirl-free inflow and a straight outlet duct. In PROTOFLOW, the fan is installed differently: it draws its flow directly from the flexible sleeve, and a screen is mounted at its outlet. The pressure rise that the installed fan actually delivers is therefore lower than the catalogue value. This is modeled as an internal loss of the fan section:
+
+$$
+\Delta p_\text{fan}(Q_\text{fan},n) = \Delta p_\text{cat}(Q_\text{fan},n) - K_6\,q_6,
+\qquad
+K_6 = K_{\text{sc},6} + K_\text{se},
+$$
+
+where $K_{\text{sc},6}$ is the loss coefficient of the outlet screen and $K_\text{se}$ the system-effect coefficient. Both are referenced to the dynamic pressure at the fan inlet, $q_6$ (with $q_6 = q_7$). Substituted in the circuit balance, the fan loss simply adds to the losses of the passive sections:
+
+$$
+\Delta p_\text{cat}(Q_\text{fan},n) = \sum_{i=1}^{12} K_i\,q_i.
+$$
+
+**Outlet screen.** The screen at the fan outlet is of the same type as the settling-chamber screens (gap size $w_\text{sc} = 1.5\,\text{mm}$, wire diameter $t_\text{sc} = 0.3\,\text{mm}$), and its loss coefficient follows from the same expression:
+
+$$
+K_{\text{sc},6} = K_{\text{Rn}}\,\sigma_\text{sc} + \left(\frac{\sigma_\text{sc}}{\beta_\text{sc}}\right)^{\!2},
+\qquad
+K_{\text{Rn}} \approx 1 + \frac{a_\text{sc}}{Re_{t_\text{sc}}},
+$$
+
+now with the wire Reynolds number $Re_{t_\text{sc}} = \rho V_6\,t_\text{sc}/\mu$ based on the fan velocity $V_6 = Q_6/A_6$. Since $A_6 \approx 0.4\,A_1$, the velocity at the outlet screen is about 2.5 times higher than in the settling chamber, and the dynamic pressure about 6.4 times higher. A single screen at this location therefore causes a larger pressure loss than the three settling-chamber screens together. The wire Reynolds number is correspondingly higher, $Re_{t_\text{sc}} \approx 150$–$350$; in this range the approximation of $K_\text{Rn}$ deviates by at most 2.5% from the exact expression, which changes $K_{\text{sc},6}$ by less than 1%. It is assumed that the screen is located upstream of pressure tap P7, so that its loss is part of the measured fan section.
+
+**System effect.** A fan installed with non-ideal inlet or outlet conditions delivers less pressure than its catalogue characteristic; this deficit is known as the *system effect* ([AMCA 201, 2002](/theory/references#amca201)). It is expressed as a multiple of the fan dynamic pressure, which is the same scaling as a regular loss. For centrifugal fans, non-uniform inflow is the most important contribution. In PROTOFLOW, the flexible sleeve is located directly upstream of the fan inlet: the separated jet formed by the sleeve obstruction needs approximately 6–8 step heights to reattach, which is longer than the remaining length of the sleeve, so the fan receives a distorted inflow. The flanges around the fan cause additional small losses, estimated at $K \approx 0.1$–$0.25$ in total, which are included in $K_\text{se}$.
+
+As no reliable correlation exists for this specific installation, $K_\text{se}$ is calibrated such that the model reproduces the measured test-section velocity. The calibrated value is large compared to typical system-effect factors of order 1–2, which indicates that it also absorbs other model uncertainties, for example a deformation of the flexible sleeve under suction or a deviation from the catalogue characteristic.
+
+<Derivation title="Fan-section loss coefficient">
+
+| Parameter | Symbol | Value | Unit |
+|-----------|--------|-------|------|
+| Fan inlet area | $A_6$ | 0.3959 | $\text{m}^2$ |
+| Screen wire diameter | $t_\text{sc}$ | 0.3 | mm |
+| Screen mesh gap size | $w_\text{sc}$ | 1.5 | mm |
+| Low-Reynolds screen parameter | $a_\text{sc}$ | 19 | — |
+
+With $\beta_\text{sc} = 25/36$ and $\sigma_\text{sc} = 11/36$ (see [Settling chamber](#settling-chamber)), and substituting $V_6 = Q_6/A_6$:
+
+$$
+K_{\text{sc},6} = \underbrace{\sigma_\text{sc} + \left(\frac{\sigma_\text{sc}}{\beta_\text{sc}}\right)^{\!2}}_{0.306\,+\,0.194\,=\,0.50}
++ \underbrace{\frac{a_\text{sc}\,\sigma_\text{sc}\,\mu\,A_6}{\rho\,t_\text{sc}}}_{0.11\,\text{m}^3/\text{s}}\,\frac{1}{Q_6},
+$$
+
+where
+
+$$
+\frac{a_\text{sc}\,\sigma_\text{sc}\,\mu\,A_6}{\rho\,t_\text{sc}}
+= \frac{19 \times 0.306 \times 1.789\times10^{-5} \times 0.3959}{1.225 \times 3\times10^{-4}}
+= 0.11\,\text{m}^3/\text{s}.
+$$
+
+At the measured operating point ($Q_6 \approx 5.3\,\text{m}^3/\text{s}$) this gives $K_{\text{sc},6} \approx 0.52$, a pressure loss of about $55\,\text{Pa}$.
+
+**Calibration of $K_\text{se}$.** The measurement of 2026-11-17 at $n = 1400\,\text{rpm}$ gave a test-section velocity of $V_3 = 20.98\,\text{m/s}$ (pitot tube), at an electrical fan power of $7015\,\text{W}$. With all other coefficients as tabulated, the model reproduces this velocity for
+
+$$
+K_\text{se} = 4.12,
+$$
+
+at which point $Q_6 = 5.28\,\text{m}^3/\text{s}$, $\phi = 0.63$ and $\Delta p_\text{cat} = 623\,\text{Pa}$. With $q_6 \approx 105\,\text{Pa}$, the fan section thus loses $K_6\,q_6 \approx 4.6 \times 105 \approx 490\,\text{Pa}$ internally. The corresponding air power, $Q_6\,\Delta p_\text{cat} \approx 3.3\,\text{kW}$, implies a fan efficiency of about 47%, which is plausible for this operating point.
+
+The calibration is sensitive to the measured velocity: the mean velocity derived from the contraction pressure drop, $V_3 \approx 20.4\,\text{m/s}$, gives $K_\text{se} = 5.2$.
+
+</Derivation>
+
+:::note Distinguishing inlet and outlet losses
+The measured pressures at P5 and P7 cannot distinguish a loss upstream of the fan (in the flexible sleeve) from a fan pressure deficit. Both give the same pressures at all current taps, but differ at the fan inlet: approximately $-670\,\text{Pa}$ for a sleeve loss versus $-190\,\text{Pa}$ for a fan deficit. A pressure tap at the fan inlet (node 6) would resolve this.
 :::
 
 ### Settling chamber
@@ -149,27 +222,44 @@ $$
 K_1 = K_\text{hc} + \sum_{j=1}^{n_\text{sc}} K_{\text{sc},j}.
 $$
 
-The flow inside the narrow hexagonal cells is in the laminar Hagen–Poiseuille regime ([White, 2016](/theory/references#white2016)), giving the velocity-dependent loss coefficient
+**Honeycomb.** The flow inside the narrow cells is laminar, with cell Reynolds number $Re_{d_\text{hc}} = \rho V_1 d_\text{hc}/\mu$, where $d_\text{hc}$ is the hydraulic diameter of the cells (the diameter of the inscribed circle). The laminar entrance length, $L_\text{e} \approx 0.05\,Re_{d_\text{hc}}\,d_\text{hc}$ ([White, 2016](/theory/references#white2016)), is much larger than the cell length $L_\text{hc}$, so the velocity profile never becomes fully developed. The fully developed Hagen–Poiseuille friction factor therefore underestimates the loss: near the cell entrance the boundary layers are thin and the wall shear stress is high. In this short-duct limit, the apparent Darcy friction factor follows from the correlation of [Shah (1978)](/theory/references#shah1978):
 
 $$
-K_\text{hc} = \frac{C_\text{hc}\,\mu\,L_\text{hc}}{\rho V_1\,d_\text{hc}^2},
+f_\text{app}\,Re_{d_\text{hc}} \approx \frac{C_\text{hc}}{\sqrt{x^+}},
+\qquad
+x^+ = \frac{L_\text{hc}}{d_\text{hc}\,Re_{d_\text{hc}}},
 $$
 
-where $C_\text{hc} = 57$ is the Poiseuille constant for regular hexagonal cells, $L_\text{hc}$ is the length of the honeycomb cells, and $d_\text{hc}$ is the hydraulic diameter of the cells, which corresponds to the diameter of the inscribed circle.
-
-Each screen has an open-area fraction 
+with $C_\text{hc} = 4 \times 3.44 = 13.76$. The honeycomb loss coefficient $K_\text{hc} = f_\text{app}\,L_\text{hc}/d_\text{hc}$ then becomes
 
 $$
-\beta_{\text{sc},j} = \frac{w_{\text{sc},j}}{w_{\text{sc},j} + t_{\text{sc},j}},
+K_\text{hc} = C_\text{hc}\,\sqrt{\frac{L_\text{hc}}{d_\text{hc}}}\;Re_{d_\text{hc}}^{-1/2}.
 $$
 
-with mesh gap size $w_{\text{sc},j}$ and wire thickness $t_{\text{sc},j}$. The pressure loss over a screen follows from  Borda–Carnot mixing loss in the high-Reynolds-number limit, with a velocity-dependent correction factor applied to account for viscous effects [(Idelchik, 1994; Diagram 8-6)](/theory/references#idelchik1994):
+The thickness of the cell walls is neglected, so the velocity inside the cells is taken equal to $V_1$ and the entry and exit losses of the cells are omitted.
+
+**Screens.** Each screen is a woven square mesh with mesh gap size $w_{\text{sc},j}$ and wire thickness $t_{\text{sc},j}$. Since the wires run in two directions, its open-area ratio and solidity are
 
 $$
-K_{\text{sc},j} = \left( 1 + \frac{a_{\text{sc}}}{Re_{t_{\text{sc},j}}} \right)\;\left(\frac{1 - \beta_{\text{sc},j}}{\beta_{\text{sc},j}}\right)^{\!2}.
+\beta_{\text{sc},j} = \left(\frac{w_{\text{sc},j}}{w_{\text{sc},j} + t_{\text{sc},j}}\right)^{\!2},
+\qquad
+\sigma_{\text{sc},j} = 1 - \beta_{\text{sc},j}.
 $$
 
-In this expression, $Re_{t_{\text{sc},j}} = \frac{\rho V_1\,t_{\text{sc},j}}{\mu}$ is the wire Reynolds number and $a_\text{sc}$ a fitting parameter calibrated against the tabulated data of ([Idelchik, 1994; Diagram 8-6](/theory/references#idelchik1994)) for circular wire screens over $Re_{t_{\text{sc},j}} = 50$–$500$.
+The pressure loss over a screen consists of a drag contribution of the wires, proportional to the solidity, and a Borda–Carnot mixing loss of the jets emerging from the mesh openings ([Barlow et al., 1999](/theory/references#barlow1999); [Pinker & Herbert, 1967](/theory/references#pinker1967)):
+
+$$
+K_{\text{sc},j} = K_{\text{Rn}}\,\sigma_{\text{sc},j} + \left(\frac{\sigma_{\text{sc},j}}{\beta_{\text{sc},j}}\right)^{\!2}.
+$$
+
+The factor $K_{\text{Rn}}$ accounts for viscous effects at low wire Reynolds number $Re_{t_{\text{sc},j}} = \rho V_1\,t_{\text{sc},j}/\mu$:
+
+$$
+K_{\text{Rn}} = 0.785\left(1 + \frac{Re_{t_{\text{sc},j}}}{241}\right)^{\!-4} + 1.01
+\;\approx\; 1 + \frac{a_\text{sc}}{Re_{t_{\text{sc},j}}},
+$$
+
+where the approximation with $a_\text{sc} = 19$ is accurate to within 1% over $Re_{t_{\text{sc},j}} = 40$–$150$, the range covered by the PROTOFLOW operating envelope.
 
 <Derivation title="Settling chamber loss coefficient">
 
@@ -177,56 +267,56 @@ In this expression, $Re_{t_{\text{sc},j}} = \frac{\rho V_1\,t_{\text{sc},j}}{\mu
 |-----------|--------|-------|------|
 | Cell length | $L_\text{hc}$ | 50 | mm |
 | Cell inscribed diameter | $d_\text{hc}$ | 5 | mm |
-| Honeycomb shape factor | $C_\text{hc}$ | 57 (hexagonal) | — |
+| Developing-flow constant | $C_\text{hc}$ | 13.76 | — |
 | Number of screens | $n_\text{sc}$ | 3 | — |
 | Screen wire diameter | $t_\text{sc}$ | 0.3 | mm |
 | Screen mesh gap size | $w_\text{sc}$ | 1.5 | mm |
-| Fitting parameter | $a_\text{sc}$ | 22 | — |
+| Low-Reynolds screen parameter | $a_\text{sc}$ | 19 | — |
 
 Substituting $V_1 = Q_1/A_1$ with $A_1 = 1\,\text{m}^2$ and grouping by power of $Q_1$:
 
 $$
-K_1 = \underbrace{n_\text{sc}\!\left(\frac{1-\beta_\text{sc}}{\beta_\text{sc}}\right)^{\!2}}_{\text{inertial screens}}
-      + \frac{1}{Q_1}
-        \left[
-          \underbrace{\frac{C_\text{hc}\,\mu\,L_\text{hc}\,A_1}{\rho\,d_\text{hc}^2}}_{\text{honeycomb}}
-        + \underbrace{\frac{n_\text{sc}\,a_\text{sc}\,\mu\,A_1}{\rho\,t_\text{sc}}\!\left(\frac{1-\beta_\text{sc}}{\beta_\text{sc}}\right)^{\!2}}_{\text{viscous screen correction}}
-        \right].
+K_1 = \underbrace{n_\text{sc}\!\left[\sigma_\text{sc} + \left(\frac{\sigma_\text{sc}}{\beta_\text{sc}}\right)^{\!2}\right]}_{\text{inertial screens}}
+      + \underbrace{\frac{n_\text{sc}\,a_\text{sc}\,\sigma_\text{sc}\,\mu\,A_1}{\rho\,t_\text{sc}}}_{\text{viscous screens}}\,\frac{1}{Q_1}
+      + \underbrace{\frac{C_\text{hc}}{d_\text{hc}}\sqrt{\frac{\mu\,L_\text{hc}\,A_1}{\rho}}}_{\text{honeycomb}}\,\frac{1}{\sqrt{Q_1}}.
 $$
 
 Evaluating each term:
 
 $$
-\beta_\text{sc} = \frac{w_\text{sc}}{w_\text{sc} + t_\text{sc}}
-      = \frac{1.5}{1.5+0.3} = \frac{5}{6},
+\beta_\text{sc} = \left(\frac{1.5}{1.5+0.3}\right)^{\!2} = \frac{25}{36},
 \qquad
-\left(\frac{1-\beta_\text{sc}}{\beta_\text{sc}}\right)^{\!2}
-      = \left(\frac{1}{5}\right)^{\!2} = \frac{1}{25},
+\sigma_\text{sc} = \frac{11}{36},
+\qquad
+\left(\frac{\sigma_\text{sc}}{\beta_\text{sc}}\right)^{\!2} = \left(\frac{11}{25}\right)^{\!2} = 0.194,
 $$
 
 $$
-n_\text{sc}\!\left(\frac{1-\beta_\text{sc}}{\beta_\text{sc}}\right)^{\!2} = 3 \times \frac{1}{25} = 0.120,
+n_\text{sc}\!\left[\sigma_\text{sc} + \left(\frac{\sigma_\text{sc}}{\beta_\text{sc}}\right)^{\!2}\right]
+= 3 \times (0.306 + 0.194) = 1.50,
 $$
 
 $$
-\frac{C_\text{hc}\,\mu\,L_\text{hc}\,A_1}{\rho\,d_\text{hc}^2}
-= \frac{57 \times 1.789\times10^{-5} \times 0.050 \times 1}{1.225 \times (5\times10^{-3})^2}
-= 1.665\,\text{m}^3/\text{s},
+\frac{n_\text{sc}\,a_\text{sc}\,\sigma_\text{sc}\,\mu\,A_1}{\rho\,t_\text{sc}}
+= \frac{3 \times 19 \times 0.306 \times 1.789\times10^{-5} \times 1}{1.225 \times 3\times10^{-4}}
+= 0.85\,\text{m}^3/\text{s},
 $$
 
 $$
-\frac{n_\text{sc}\,a_\text{sc}\,\mu\,A_1}{\rho\,t_\text{sc}}\!\left(\frac{1-\beta_\text{sc}}{\beta_\text{sc}}\right)^{\!2}
-= \frac{3 \times 22 \times 1.789\times10^{-5} \times 1}{1.225 \times 3\times10^{-4}} \times \frac{1}{25}
-= 0.129\,\text{m}^3/\text{s}.
+\frac{C_\text{hc}}{d_\text{hc}}\sqrt{\frac{\mu\,L_\text{hc}\,A_1}{\rho}}
+= \frac{13.76}{5\times10^{-3}}\sqrt{\frac{1.789\times10^{-5} \times 0.050 \times 1}{1.225}}
+= 2.35\,\text{m}^{3/2}/\text{s}^{1/2}.
 $$
 
-Summing the two $1/Q_1$ contributions gives $1.665 + 0.129 = 1.793\,\text{m}^3/\text{s}$, so
+This gives
 
 $$
-K_1 = 0.120 + \frac{1.793}{Q_1},
+K_1 = 1.50 + \frac{0.85}{Q_1} + \frac{2.35}{\sqrt{Q_1}},
 $$
 
-with $Q_1$ in $\text{m}^3/\text{s}$.
+with $Q_1$ in $\text{m}^3/\text{s}$. At $Q_1 = 5\,\text{m}^3/\text{s}$ the screens contribute $K_\text{sc} \approx 1.67$ and the honeycomb $K_\text{hc} \approx 1.05$.
+
+Over $Q_1 = 2$–$7\,\text{m}^3/\text{s}$, this expression is within 6% of the result obtained with the full developing-flow correlation of [Shah (1978)](/theory/references#shah1978) and the exact $K_\text{Rn}$. The short-duct approximation for the honeycomb slightly underestimates the extra pressure drop at the cell entrance.
 
 </Derivation>
 

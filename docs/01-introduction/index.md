@@ -7,6 +7,8 @@ slug: /
 
 # Introduction
 
+![The ProtoFlow wind tunnel at TU/e.](/img/Cover.jpeg)
+
 Flows shape the performance of many engineered systems. They determine how much lift an aircraft produces and how efficiently a car moves through the air, but they are equally important in a wide range of mechanical engineering applications, including heat exchangers, ventilation systems, turbomachinery, energy systems, and electronic cooling. In many cases, the behavior of a fluid directly determines a system's efficiency, reliability, and operating limits.
 
 [Wind tunnels](https://en.wikipedia.org/wiki/Wind_tunnel) have helped engineers study airflow for more than a century. The first enclosed wind tunnel, built by Francis Herbert Wenham in 1871, offered a more controlled way to study aerodynamic forces than experiments with moving objects in open air. Since then, wind tunnels have evolved from relatively simple experimental facilities into highly sophisticated research and industrial tools capable of reproducing a wide range of flow conditions, measuring forces with great precision, and visualizing complex flow phenomena. Despite enormous advances in computational modeling, wind tunnels remain essential today both for investigating flow behavior and for validating the models used to predict it [[Barlow et al., 1999](/references#barlow1999)].

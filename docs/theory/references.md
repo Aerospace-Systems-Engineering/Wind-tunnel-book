@@ -16,6 +16,12 @@ Idelchik, I.E. (1994). *Handbook of Hydraulic Resistance*, 3rd ed. Begell House.
 <span id="white2016"></span>
 White, F.M. (2016). *Fluid Mechanics*, 8th ed. McGraw-Hill Education.
 
+<span id="shah1978"></span>
+Shah, R.K. (1978). A correlation for laminar hydrodynamic entry length solutions for circular and noncircular ducts. *Journal of Fluids Engineering*, 100(2), 177–179.
+
+<span id="pinker1967"></span>
+Pinker, R.A. & Herbert, M.V. (1967). Pressure loss associated with compressible flow through square-mesh wire gauzes. *Journal of Mechanical Engineering Science*, 9(1), 11–23.
+
 <span id="reneau1967"></span>
 Reneau, L.R., Johnston, J.P. & Kline, S.J. (1967). Performance and design of straight, two-dimensional diffusers. *Journal of Basic Engineering*, 89(1), 141–150. [doi:10.1115/1.3609544](https://doi.org/10.1115/1.3609544)
 
@@ -30,6 +36,9 @@ Casey, M.V. (1985). The effects of Reynolds number on the efficiency of centrifu
 
 <span id="strub1987"></span>
 Strub, R.A., Bonciani, L., Borer, C.J., Casey, M.V., Cole, S.L., Cook, B.B., Kotzur, J., Simon, H. & Strite, M.A. (1987). Influence of the Reynolds number on the performance of centrifugal compressors. *Journal of Turbomachinery*, 109(4), 541–544. [doi:10.1115/1.3262145](https://doi.org/10.1115/1.3262145)
+
+<span id="amca201"></span>
+AMCA (2002). *Fans and Systems*, AMCA Publication 201-02 (R2011). Air Movement and Control Association International.
 
 <span id="iso5801"></span>
 ISO 5801:2017. *Fans — Performance testing using standardized airways*. International Organization for Standardization.
